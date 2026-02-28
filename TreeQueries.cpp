@@ -72,8 +72,9 @@ struct HLD {
         adj[v].push_back(u);
     }
 
-    void setValue(int v, int x) {
-        vals[v] = x;
+    void updateNode(int v, char c) {
+        vals[v] = c;
+        seg->update(1, 0, n - 1, pos[v], c);
     }
 
     int dfs(int v, int p) {
@@ -97,10 +98,7 @@ struct HLD {
         head[v] = h;
         pos[v] = cur_pos;
         base[cur_pos++] = vals[v];
-
-        if (heavy[v] != -1)
-            decompose(heavy[v], h);
-
+        if (heavy[v] != -1) decompose(heavy[v], h);
         for (int u : adj[v]) {
             if (u == parent[v] || u == heavy[v]) continue;
             decompose(u, u);
@@ -111,26 +109,30 @@ struct HLD {
         cur_pos = 0;
         dfs(root, -1);
         decompose(root, root);
-
         seg = new SegTree(n);
         seg->build(base, 1, 0, n - 1);
     }
 
     int queryPath(int u, int v) {
         int res = INT_MIN;
+        // we are performing this operation till both u and v belong to the same chain
         while (head[u] != head[v]) {
-            if (depth[head[u]] > depth[head[v]])
-                swap(u, v);
+            
+            // we are swapping the node and chosing the node that is deeper in tree
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+
+            // computing the query for whole chain 
             int cur = seg->query(1, 0, n - 1, pos[head[v]], pos[v]);
+            
             res = max(res, cur);
+
+            // moving to different chain (parent chain of the head of current chain)
             v = parent[head[v]];
         }
         if (depth[u] > depth[v]) swap(u, v);
+
+        // once they belong to same chain we performed the range query from u to v
         res = max(res, seg->query(1, 0, n - 1, pos[u], pos[v]));
         return res;
-    }
-
-    void updateNode(int v, int x) {
-        seg->update(1, 0, n - 1, pos[v], x);
     }
 };
