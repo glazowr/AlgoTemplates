@@ -9,6 +9,16 @@ int findLength(ListNode* head) {
     return length;
 }
 
+// for debug
+void read(ListNode* head) {
+    ListNode* current = head;
+    while (current != nullptr) {
+        cout << current->val << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
 // deleting target
 ListNode* deleteNode(ListNode* head, int target) {
     if (head->val == target) {
