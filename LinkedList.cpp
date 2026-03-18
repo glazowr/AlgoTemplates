@@ -66,3 +66,48 @@ ListNode* reverse(ListNode* head) {
     }
     return prev;
 }
+
+
+// Flatten a multi-level Doubly Linked List 
+// This question can also be solved using recursion
+
+Node* flatten(Node* head) {
+    if (head == NULL) return NULL;
+    stack<Node*> s;
+    Node* d = new Node(-1);
+    d->next = head;
+    head->prev = d;
+    Node* t = d;
+    Node* cur = head;
+    while (cur) {
+        // creating new node and setting pointers
+        Node* newNd = new Node(cur->val);
+        d->next = newNd;
+        newNd->prev = d;
+        d = d->next;
+
+        // we are checking if child is present or not
+        if (cur->child) {
+
+            // if the child is present then we go inside of that, and put the next node of the current node in stack when everything in child is processed 
+            // then we can reach the next node using stack, if the current node is required to put after processing child node, we would have put cur instead of
+            // cur->next to come back
+            s.push(cur->next);
+            cur = cur->child;
+        }
+
+        // if no child then just go to next node
+        else cur = cur->next;
+
+        // here we are making sure that cur is never null, if there is unprocessed node is stack and we have explored the current child (it's null) 
+        // then we will take element out of stack (we put while loop because it can be NULL too) so we keep going inside branch.
+        while (!s.empty() && cur == NULL) {
+            cur = s.top();
+            s.pop();
+        }
+    }
+
+    // removing the dummy node
+    t->next->prev = NULL;
+    return t->next;
+}
