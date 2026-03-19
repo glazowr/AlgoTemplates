@@ -111,3 +111,20 @@ Node* flatten(Node* head) {
     t->next->prev = NULL;
     return t->next;
 }
+
+// intersection of two linked List, we are moving the pointer to the opposite end, once it becomes null to offset the difference in length
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode* curA = headA;
+    ListNode* curB = headB;
+    while (curA != curB) {        
+        curA = curA->next;
+        curB = curB->next;
+        if (curA == curB) return curA;
+
+        // here we are throwing at the oppostie end but we can also
+        // go to the same end too, it's just gonna take more traversal
+        if (!curA) curA = headB;
+        if (!curB) curB = headA;
+    }
+    return curA;
+}
