@@ -13,6 +13,7 @@ while (!q.empty()) {
 }
 
 // Inorder traversal using stack and pointers
+// https://leetcode.com/problems/all-elements-in-two-binary-search-trees/
 vector<int> ans;
 stack<TreeNode*> st;
 TreeNode* cur = root;
