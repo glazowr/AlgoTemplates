@@ -53,3 +53,31 @@ while (true) {
         cur = cur->right;
     }
 }
+
+// Keeping the stack upto a specific node
+// https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+// The general way (like morris traversal) does not give stack path towards desired node.
+stack<TreeNode*> s;
+auto f = [&] (auto&& self, TreeNode* node) {
+    if (!node) return false;
+    s.push(node);
+    if (node == target) return true;       
+    if (self(self, node->left) || self(self, node->right)) return true;
+    s.pop();
+    return false;
+};
+f(f, root);
+
+
+/////////////////////////////////////////////////// DEBUG ///////////////////////////////////////////////////////////
+
+// stack print of TreeNode while keep it intact
+
+void prt(stack<TreeNode*>& s) {
+    if (s.empty()) return;
+    TreeNode* x = s.top();
+    s.pop();
+    cout << x->val << " ";
+    prt(s);
+    s.push(x);  // restore
+}
