@@ -35,7 +35,7 @@ while (cur || !st.empty()) {
 
     // 3. Move to right subtree
     // we do this directly to make sure that if right tree is null then while loop will not run and it will take another element from the stack
-    // if we null check the right then cur might still be on the top stack element that is not null, then it will go into left tree repeating the process so we null it intensionally
+    // if we null check the right then cur might still be on the top stack element that is not null, then it will go into left tree repeating the process so we null it intentionally
     cur = cur->right;
 }
 
