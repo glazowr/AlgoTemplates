@@ -26,12 +26,16 @@ while (cur || !st.empty()) {
         cur = cur->left;
     }
 
+    // at this point current is null and top element contains the number we need to process
+
     // 2. Process node
     cur = st.top();
     st.pop();
     ans.push_back(cur->val);
 
     // 3. Move to right subtree
+    // we do this directly to make sure that if right tree is null then while loop will not run and it will take another element from the stack
+    // if we null check the right then cur might still be on the top stack element that is not null, then it will go into left tree repeating the process so we null it intensionally
     cur = cur->right;
 }
 
