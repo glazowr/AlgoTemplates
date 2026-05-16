@@ -55,6 +55,7 @@ ListNode* fastAndSlow(ListNode* head) {
 
 // reverse the linked list
 // test for palindrome (go to middle using slow and fast pointer, then reverse the LL uisng slow ponter and then compare)
+// Swap Nodes in Pairs --> https://leetcode.com/problems/swap-nodes-in-pairs/
 ListNode* reverse(ListNode* head) {
     ListNode* prev = nullptr;
     ListNode* current = head;
@@ -68,7 +69,7 @@ ListNode* reverse(ListNode* head) {
 }
 
 
-// Flatten a multi-level Doubly Linked List 
+// Flatten a multi-level Doubly Linked List ---> https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/
 // This question can also be solved using recursion
 
 Node* flatten(Node* head) {
@@ -128,3 +129,29 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
     }
     return curA;
 }
+
+// if we want to move to kth node then put the pointer on head and move k - 1 to get there 
+// Kth node from opposite side (for doing it in singel pass)
+// Swapping Nodes in a Linked List --> https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+
+// having an extra reference node to maintain the fixed distance between two nodes
+ListNode* swapNodes(ListNode* head, int k) {
+    ListNode* p1 = NULL;
+    ListNode* p2 = NULL; 
+    ListNode* temp = head;
+    while(temp) {        
+        if(p2 != NULL)
+            p2 = p2->next;
+        k--;
+        if(k == 0) {
+            p1 = temp;
+            p2 = head;
+        }       
+        temp = temp->next;        
+    }   
+    swap(p1->val, p2->val);
+    return head;
+}
+
+// for traversing circular linked list used head node as looping condition instead of NULL cur->next != head
+// Insert in Sorted Circular Linked List --> https://www.geeksforgeeks.org/problems/sorted-insert-for-circular-linked-list/1
