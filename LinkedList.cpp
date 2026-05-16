@@ -1,3 +1,5 @@
+// always keep track of head node and cur node, both are different
+
 // traversal
 int findLength(ListNode* head) {
     int length = 0;
@@ -131,6 +133,8 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 }
 
 // if we want to move to kth node then put the pointer on head and move k - 1 to get there 
+// if we want to get kth distance away 
+// for (int i = 0; i < k; i++) kth = kth->next; 1 -> 2 -> 3 -> 4 -> 5 for 2nd node we are reaching 3
 // Kth node from opposite side (for doing it in singel pass)
 // Swapping Nodes in a Linked List --> https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
 
