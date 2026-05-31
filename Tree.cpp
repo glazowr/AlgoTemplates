@@ -37,6 +37,9 @@ while (cur || !st.empty()) {
     // we do this directly to make sure that if right tree is null then while loop will not run and it will take another element from the stack
     // if we null check the right then cur might still be on the top stack element that is not null, then it will go into left tree repeating the process so we null it intentionally
     cur = cur->right;
+
+    // Right child exists: cur is non-null, so the outer while continues, and Phase 1 dives left into that right subtree.
+    // Right child is null: cur = nullptr. The inner while(cur) loop is skipped entirely, and we go straight to st.top() to backtrack up the tree.
 }
 
 // morris traversal 
