@@ -71,6 +71,11 @@ auto f = [&] (auto&& self, TreeNode* node) {
 };
 f(f, root);
 
+// when calculating views, we can either go for bfs or dfs traversal
+// incase of dfs, we use coordinate system and for the cases where two different nodes have same coordinates we look for the order of traversal to make decision
+
+// right view https://leetcode.com/problems/binary-tree-right-side-view/
+
 
 /////////////////////////////////////////////////// DEBUG ///////////////////////////////////////////////////////////
 
